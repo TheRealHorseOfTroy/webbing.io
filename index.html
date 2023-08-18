@@ -18,6 +18,9 @@
             // Navigate to the second page by replacing the current URL
             window.location.replace("col_C.html");
         });
+        const radioForm = document.createElement('form');
+        radioForm.id = 'myForm'; // Set a unique ID for the form
+
 
         fetch('ex.txt')
             .then(response => response.text())
@@ -41,6 +44,8 @@
                     }
                 });
             });
+        const formContainer = document.getElementById('formContainer');
+        formContainer.appendChild(radioForm);
 
     </script>
 </body>
