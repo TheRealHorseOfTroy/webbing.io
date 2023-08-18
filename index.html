@@ -5,13 +5,18 @@
 </head>
 <body>
     <h1>First Page</h1>
-    <button id="openSecondPage">Open Second Page</button>
+    <button id="Single">Single?</button>
+    <button id="Couples">Couple?</button>
 
     <script>
         // Add an event listener to the button
-        document.getElementById("openSecondPage").addEventListener("click", function() {
+        document.getElementById("Single").addEventListener("click", function() {
             // Navigate to the second page by replacing the current URL
-            window.location.replace("second.html");
+            window.location.replace("col_S.html");
+        });
+        document.getElementById("Couples").addEventListener("click", function() {
+            // Navigate to the second page by replacing the current URL
+            window.location.replace("col_C.html");
         });
     </script>
 </body>
