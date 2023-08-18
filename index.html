@@ -12,21 +12,25 @@
         // Add an event listener to the button
         document.getElementById("Single").addEventListener("click", function() {
             // Navigate to the second page by replacing the current URL
+            localStorage.setItem("selectedOption", "Single");
             window.location.replace("col_S.html");
         });
         document.getElementById("Couples").addEventListener("click", function() {
             // Navigate to the second page by replacing the current URL
+            localStorage.setItem("selectedOption", "Couples");
             window.location.replace("col_C.html");
         });
         const radioForm = document.createElement('form');
         radioForm.id = 'myForm'; // Set a unique ID for the form
 
 
+        const radioForm = document.createElement('form');
+        radioForm.id = 'myForm'; // Set a unique ID for the form
+
         fetch('ex.txt')
             .then(response => response.text())
             .then(text => {
                 const lines = text.split('\n');
-                const radioForm = document.getElementById('radioForm');
 
                 // Create radio buttons for each line
                 lines.forEach(line => {
@@ -44,8 +48,9 @@
                     }
                 });
             });
-        const formContainer = document.getElementById('formContainer');
-        formContainer.appendChild(radioForm);
+
+        // Store the form in local storage
+        localStorage.setItem("radioForm", radioForm.outerHTML);
 
     </script>
 </body>

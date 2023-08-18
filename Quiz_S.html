@@ -8,8 +8,11 @@
     <div id="formContainer"></div>
     <script>
         // Access the form from index.html and insert it into the container
+        const storedForm = localStorage.getItem("radioForm");
+
+        // Display the form in the formContainer
         const formContainer = document.getElementById('formContainer');
-        formContainer.appendChild(radioForm);
+        formContainer.innerHTML = storedForm;
     </script>
 </body>
 

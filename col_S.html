@@ -6,6 +6,7 @@
 <body>
     <h1>First Page</h1>
     <button id="pretend">colour 1 ;)</button>
+    <div id="formContainer"></div>
 
     <script>
         // Add an event listener to the button
@@ -13,6 +14,11 @@
             // Navigate to the second page by replacing the current URL
             window.location.replace("Quiz_S.html");
         });
+        const storedForm = localStorage.getItem("radioForm");
+
+        // Display the form in the formContainer
+        const formContainer = document.getElementById('formContainer');
+        formContainer.innerHTML = storedForm;
     </script>
 </body>
 </html>
