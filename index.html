@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Open New Window Example</title>
+    <title>Button Click Example</title>
 </head>
 <body>
-    <h1>Open New Window Example</h1>
-    <button id="openWindow">Open New Window</button>
+    <h1>First Page</h1>
+    <button id="openSecondPage">Open Second Page</button>
 
     <script>
-        document.getElementById("openWindow").addEventListener("click", function() {
-            // Open a new window with a specified URL
-            window.open("second.html", "_blank");
+        // Add an event listener to the button
+        document.getElementById("openSecondPage").addEventListener("click", function() {
+            // Navigate to the second page by replacing the current URL
+            window.location.replace("second.html");
         });
     </script>
 </body>
