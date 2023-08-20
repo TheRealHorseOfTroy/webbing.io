@@ -2,18 +2,38 @@
 <html>
 <head>
     <title>Second Page</title>
+    <script src="quiz-builder.js"></script>
 </head>
 <body>
-    <h1>latest Loser doesn't lose</h1>
+    <h1>Loser! welcome!</h1>
+    
+    <button id="submit">submit</button>
     <div id="formContainer"></div>
     <script>
-        // Access the form from index.html and insert it into the container
-        const storedForm = localStorage.getItem("radioForm");
-
-        // Display the form in the formContainer
         const formContainer = document.getElementById('formContainer');
-        formContainer.innerHTML = storedForm;
+        const radioForm = buildQuiz(); // Use the function to build the form
+        formContainer.appendChild(radioForm);
+        // Add an event listener to the button
+        document.getElementById("submit").addEventListener("click", function() {
+            const selectedKinks = [];
+            
+            // Loop through radio buttons with names in the format "kink0" to "kink246"
+            for (let i = 0; i <= 246; i++) {
+                const inputName = 'kink' + i;
+                const checkedInput = document.querySelector(`input[name="${inputName}"]:checked`);
+                
+                if (checkedInput) {
+                    selectedKinks.push(checkedInput.value);
+                }
+            }
+            
+            sessionStorage.setItem('selectedKinks', JSON.stringify(selectedKinks));
+        
+            // Navigate to the second page by replacing the current URL
+            window.location.replace("S_Stats.html");
+        });
+        
     </script>
 </body>
-
 </html>
+

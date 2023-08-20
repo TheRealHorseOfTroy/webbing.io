@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stats</title>
+</head>
+<body>
+    <h1>Stats</h1>
+    
+    <ul id="selectedKinksList"></ul>
+    <script type="module" src="bruh.js"></script>
+    
+    <script>
+        const selectedKinksList = document.getElementById('selectedKinksList'); // Correct the ID here
+        const selectedKinksJSON = sessionStorage.getItem('selectedKinks'); // Change 'selectedKinks' to 'selectedKinks'
+        const selectedKinks = JSON.parse(selectedKinksJSON);
+
+        if (selectedKinks && selectedKinks.length > 0) {
+            selectedKinks.forEach(k => {
+                const listItem = document.createElement('li');
+                listItem.textContent = k;
+                selectedKinksList.appendChild(listItem);
+            });
+        } else {
+            const message = document.createElement('p');
+            message.textContent = 'No kinks selected.';
+            selectedKinksList.appendChild(message);
+        }
+    </script>
+</body>
+</html>
+
+
+//go through json file, search for thing == k
+    //add to datap1
+//go through datap1
+    //add taboo to x
+    //add pop to y

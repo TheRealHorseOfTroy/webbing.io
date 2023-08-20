@@ -2,12 +2,17 @@
 <html>
 <head>
     <title>Choose a colour</title>
+    <script src="Q-colours.js"></script>
 </head>
 <body>
-    <h1>First Page</h1>
+    <h1>Colours</h1>
     <button id="pretend">colour 1 ;)</button>
-
+    <div id="formContainer"></div>
+   
     <script>
+        const formContainer = document.getElementById('formContainer');
+        const radioForm = CoupleCols(); // Use the function to build the form
+        formContainer.appendChild(radioForm);
         // Add an event listener to the button
         document.getElementById("pretend").addEventListener("click", function() {
             // Navigate to the second page by replacing the current URL
@@ -16,3 +21,4 @@
     </script>
 </body>
 </html>
+

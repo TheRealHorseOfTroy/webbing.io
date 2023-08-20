@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>chart.js</title>
+    <style>
+        .chart-container {
+            position: relative;
+        }
+
+        .data-label {
+            position: absolute;
+            font-size: 12px;
+            text-align: center;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <canvas id="chartId" aria-label="chart" height="600" width="1200"></canvas>
+        <div class="data-label" id="dataLabelContainer"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
+    <script src="maths.js"></script>
+    <script src="jquery-csv.js"></script>
+    <script>
+        //var csv = require('jquery-csv');
+        var chrt = document.getElementById("chartId").getContext("2d");
+        var KCoords = getCoords();
+        var chartId = new Chart(chrt, {
+            type: 'scatter',
+            data: {
+                labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
+                datasets: [{
+                    label: "online tutorial subjects",
+                    data: KCoords,
+                    backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen', 'gold', 'lightblue'],
+                    borderColor: ['black'],
+                    radius: 8,
+                }],
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom'
+                    },
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom', // Position of the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return chartId.data.labels[context.dataIndex];
+                            }
+                        }
+                    }
+                }
+            },
+        });
+        /*
+        var dataLabelContainer = document.getElementById("dataLabelContainer");
+        var dataPoints = chartId.data.datasets[0].data;
+        var labels = chartId.data.labels;
+
+        dataPoints.forEach(function(point, index) {
+            var label = document.createElement("div");
+            label.className = "data-label";
+            label.textContent = labels[index];
+            label.style.left = chartId.scales.x.getPixelForValue(point.x) + "px";
+            label.style.top = chartId.scales.y.getPixelForValue(point.y) + "px"; // Adjust for proper spacing
+            dataLabelContainer.appendChild(label);
+        }); */
+    </script>
+</body>
+</html>

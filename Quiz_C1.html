@@ -2,14 +2,33 @@
 <html>
 <head>
     <title>couples</title>
+    <script src="quiz-builder.js"></script>
 </head>
 <body>
-    <h1>First Page</h1>
+    <h1>couple the first</h1>
     <button id="next">next</button>
+    <div id="formContainer"></div>
 
     <script>
+        const formContainer = document.getElementById('formContainer');
+        const radioForm = buildQuiz(); // Use the function to build the form
+        formContainer.appendChild(radioForm);
         // Add an event listener to the button
         document.getElementById("next").addEventListener("click", function() {
+            const selectedKinksP1 = [];
+            
+            // Loop through radio buttons with names in the format "kink0" to "kink246"
+            for (let i = 0; i <= 246; i++) {
+                const inputName = 'kink' + i;
+                const checkedInput = document.querySelector(`input[name="${inputName}"]:checked`);
+                
+                if (checkedInput) {
+                    selectedKinksP1.push(checkedInput.value);
+                }
+            }
+            
+            sessionStorage.setItem('selectedKinksP1', JSON.stringify(selectedKinksP1));
+        
             // Navigate to the second page by replacing the current URL
             window.location.replace("Quiz_C2.html");
         });

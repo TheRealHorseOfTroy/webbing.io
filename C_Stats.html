@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2  Stats</title>
+    <style>
+        canvas {
+          border: 1px solid black;
+        }
+      </style>
+</head>
+<body>
+    <h1>Stats</h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <canvas id="myChart" width="1000" height="600"></canvas>
+    
+    <ul id="selectedKinksP1List"></ul>
+    <ul id="selectedKinksP2List"></ul>
+    
+    <script>
+        function getP1(){
+            const selectedKinksP1List = document.getElementById('selectedKinksP1List'); // Correct the ID here
+            const selectedKinksP1JSON = sessionStorage.getItem('selectedKinksP1'); // Change 'selectedKinks' to 'selectedKinks'
+            const selectedKinksP1 = JSON.parse(selectedKinksP1JSON);
+
+            if (selectedKinksP1 && selectedKinksP1.length > 0) {
+                selectedKinksP1.forEach(k => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = k;
+                    selectedKinksP1List.appendChild(listItem);
+                });
+            } else {
+                const message = document.createElement('p');
+                message.textContent = 'No kinks selected.';
+                selectedKinksP1List.appendChild(message);
+            }
+        }
+        function getP2(){
+            const selectedKinksP2List = document.getElementById('selectedKinksP2List'); // Correct the ID here
+            const selectedKinksP2JSON = sessionStorage.getItem('selectedKinksP2'); // Change 'selectedKinks' to 'selectedKinks'
+            const selectedKinksP2 = JSON.parse(selectedKinksP2JSON);
+
+            if (selectedKinksP2 && selectedKinksP2.length > 0) {
+                selectedKinksP2.forEach(k => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = k;
+                    selectedKinksP2List.appendChild(listItem);
+                });
+            } else {
+                const message = document.createElement('p');
+                message.textContent = 'No kinks selected.';
+                selectedKinksP2List.appendChild(message);
+            }
+        }
+        
+        function draw() {
+          const canvas = document.getElementById("tutorial");
+          if (canvas.getContext) {
+            const ctx = canvas.getContext("2d");
+          }
+        }
+        window.addEventListener("load", draw);
+      </script>
+</body>
+</html>
