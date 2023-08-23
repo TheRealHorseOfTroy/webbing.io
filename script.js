@@ -1,6 +1,6 @@
 // script.js
 
-async function getFirstJsonValue() {
+/*async function getFirstJsonValue() {
     try {
       const response = await fetch('data.json');
       const jsonData = await response.json();
@@ -28,4 +28,18 @@ async function getFirstJsonValue() {
       resultDiv.textContent = 'An error occurred while loading JSON.';
     }
   });
-  
+  */
+  document.addEventListener('DOMContentLoaded', function() {
+    loadJson();
+});
+function loadJson() {
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => displayJson(data))
+        .catch(error => console.error('Error loading JSON:', error));
+}
+
+function displayJson(jsonData) {
+    const jsonContentDiv = document.getElementById('jsonContent');
+    jsonContentDiv.innerHTML = JSON.stringify(jsonData, null, 2);
+}

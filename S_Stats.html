@@ -1,7 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Stats</title>
+    <style>
+        .chart-container {
+            position: relative;
+        }
+
+        .data-label {
+            position: absolute;
+            font-size: 12px;
+            text-align: center;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
     <h1>Stats</h1>
@@ -26,12 +39,54 @@
             selectedKinksList.appendChild(message);
         }
     </script>
+     <div class="chart-container">
+        <canvas id="chartId" aria-label="chart" height="600" width="1200"></canvas>
+        <div class="data-label" id="dataLabelContainer"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
+    <script src="maths.js"></script>
+    <script src="jquery-csv.js"></script>
+    <script>
+        //var csv = require('jquery-csv');
+        var chrt = document.getElementById("chartId").getContext("2d");
+        var KCoords = getCoords();
+        var chartId = new Chart(chrt, {
+            type: 'scatter',
+            data: {
+                labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
+                datasets: [{
+                    label: "online tutorial subjects",
+                    data: KCoords,
+                    backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen', 'gold', 'lightblue'],
+                    borderColor: ['black'],
+                    radius: 8,
+                }],
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom'
+                    },
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom', // Position of the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return chartId.data.labels[context.dataIndex];
+                            }
+                        }
+                    }
+                }
+            },
+        });
+
+    </script>
 </body>
 </html>
 
 
-//go through json file, search for thing == k
-    //add to datap1
-//go through datap1
-    //add taboo to x
-    //add pop to y
