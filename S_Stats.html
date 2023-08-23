@@ -39,10 +39,19 @@
             selectedKinksList.appendChild(message);
         }
     </script>
+
+   <!-- Setting up spaces for both graphs -->
+
      <div class="chart-container">
         <canvas id="chartId" aria-label="chart" height="600" width="1200"></canvas>
-        <div class="data-label" id="dataLabelContainer"></div>
+        <div class="data-label" id="dataLabelContainer"></div>\
+    <div class="chart-container2">
+        <canvas id="chartId2" aria-label="chart" height="600" width="1200"></canvas>
+        <div class="data-label2" id="dataLabelContainer2"></div>
     </div>
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
     <script src="maths.js"></script>
     <script src="jquery-csv.js"></script>
@@ -78,6 +87,46 @@
                         callbacks: {
                             label: function(context) {
                                 return chartId.data.labels[context.dataIndex];
+                            }
+                        }
+                    }
+                }
+            },
+        });
+
+    </script>
+    <script>
+        //var csv = require('jquery-csv');
+        var chrt2 = document.getElementById("chartId2").getContext("2d");
+        var NCoords = getNew();
+        var chartId2 = new Chart(chrt2, {
+            type: 'scatter',
+            data: {
+                labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
+                datasets: [{
+                    label: "online tutorial subjects",
+                    data: NCoords,
+                    backgroundColor: ['pink'],
+                    borderColor: ['black'],
+                    radius: 8,
+                }],
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom'
+                    },
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom', // Position of the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return chartId2.data.labels[context.dataIndex];
                             }
                         }
                     }
