@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function loadJson(selectedKinks) {
-        fetch('c.json')
+        fetch('data.json')
             .then(response => response.json())
             .then(data => filterAndDisplayJson(data, selectedKinks))
             .catch(error => console.error('Error loading JSON:', error));
