@@ -9,6 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
     displaySelectedKinks(processedKinks);
     loadJson(processedKinks);
 
+    // Function to get new coordinates
+    function getNew(filteredEntries) {
+        const newCoordsArray = [];
+        
+        filteredEntries.forEach(entry => {
+            newCoordsArray.push({ x: entry.tabooness, y: entry.popularity });
+        });
+    
+        return newCoordsArray;
+    }
+
+    // Function to display selected kinks
     function displaySelectedKinks(selectedKinks) {
         const selectedKinksList = document.getElementById('selectedKinksList');
 
@@ -25,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Function to load JSON data
     function loadJson(selectedKinks) {
         fetch('data.json')
             .then(response => response.json())
@@ -32,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error loading JSON:', error));
     }
 
+    // Function to filter and display JSON data
     function filterAndDisplayJson(jsonData, selectedKinks) {
         const filteredEntries = jsonData.filter(entry => selectedKinks.includes(entry.Thing));
 
@@ -67,4 +81,17 @@ document.addEventListener('DOMContentLoaded', function() {
             jsonContentDiv.textContent = 'No matching entries found.';
         }
     }
+
+    // Get a reference to the "Get New Coordinates" button
+    const getNewButton = document.getElementById('getNewButton');
+
+    // Add a click event listener to the button
+    getNewButton.addEventListener('click', function() {
+        // Call the getNew function here
+        const newCoords = getNew(filteredEntries); // Make sure filteredEntries is available here
+
+        // Do something with newCoords if needed
+        console.log(newCoords);
+    });
+
 });
