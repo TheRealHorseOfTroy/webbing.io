@@ -37,7 +37,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const jsonContentDiv = document.getElementById('jsonContent');
         if (filteredEntries.length > 0) {
-            jsonContentDiv.innerHTML = JSON.stringify(filteredEntries, null, 2);
+            // Collect taboo and popularity values for selected entries
+            const tabooValues = filteredEntries.map(entry => entry.tabooness);
+            const popularityValues = filteredEntries.map(entry => entry.popularity);
+
+            // Display taboo and popularity values
+            const tabooList = document.createElement('ul');
+            const popularityList = document.createElement('ul');
+
+            tabooValues.forEach(value => {
+                const listItem = document.createElement('li');
+                listItem.textContent = value;
+                tabooList.appendChild(listItem);
+            });
+
+            popularityValues.forEach(value => {
+                const listItem = document.createElement('li');
+                listItem.textContent = value;
+                popularityList.appendChild(listItem);
+            });
+
+            jsonContentDiv.innerHTML = `
+                <h2>Taboo Values</h2>
+                ${tabooList.outerHTML}
+                <h2>Popularity Values</h2>
+                ${popularityList.outerHTML}
+            `;
         } else {
             jsonContentDiv.textContent = 'No matching entries found.';
         }
