@@ -111,7 +111,7 @@
             .then(coords => {
                 const chrt2 = document.getElementById("chartId2").getContext("2d");
 
-                new Chart(chrt2, {
+                var chartId2 =new Chart(chrt2, {
                     type: 'scatter',
                     data: {
                         datasets: [{
