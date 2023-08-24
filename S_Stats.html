@@ -20,10 +20,14 @@
     <h1>Stats</h1>
     
     <ul id="selectedKinksList"></ul>
-    <div id="jsonContent"></div>
+    <div id="nCoordsOutput"></div>
     <script>
-        const kinkNames = JSON.parse(kinkNamesJSON);  
-        if (kinkNames> 0) {
+        const selectedKinksList = document.getElementById('selectedKinksList'); // Get the selectedKinksList element
+        
+        const kinkNamesJSON = sessionStorage.getItem('kinkNames'); // Retrieve kinkNames from sessionStorage
+        const kinkNames = JSON.parse(kinkNamesJSON);
+    
+        if (kinkNames && kinkNames.length > 0) { // Check if the array is not empty
             kinkNames.forEach(k => {
                 const listItem = document.createElement('li');
                 listItem.textContent = k;
@@ -34,6 +38,15 @@
             message.textContent = 'No kinks selected.';
             selectedKinksList.appendChild(message);
         }
+
+        var NCoords = JSON.parse(sessionStorage.getItem('kinkCoords'));
+    var nCoordsOutput = document.getElementById('nCoordsOutput'); // Get the element
+
+    if (NCoords && NCoords.length > 0) {
+        nCoordsOutput.textContent = "NCoords: " + JSON.stringify(NCoords); // Display the contents
+    } else {
+        nCoordsOutput.textContent = "No NCoords available.";
+    }
     </script>
 
    <!-- Setting up spaces for both graphs -->
