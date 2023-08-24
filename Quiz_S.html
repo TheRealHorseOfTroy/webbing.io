@@ -28,7 +28,9 @@
             }
             const kinkNames = trimNames(selectedKinks);
             const kinkValues = trimValues(selectedKinks);
-            const kinkCoords = getCoords(kinkNames);
+            const kinkCoords = Coords(kinkNames);
+            console.log(kinkCoords);
+            console.log(kinkNames)
             
             sessionStorage.setItem('kinkNames', JSON.stringify(kinkNames));
             sessionStorage.setItem('kinkValues', JSON.stringify(kinkValues));

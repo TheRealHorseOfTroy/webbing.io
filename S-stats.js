@@ -9,7 +9,7 @@ function trimValues(selectedKinks) {
 }
 
 // Function to load JSON data and get coordinates based on selected kink names
-function getCoords(kinkNames) {
+function Coords(kinkNames) {
     return fetch('data.json')
         .then(response => response.json())
         .then(data => {
