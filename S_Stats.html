@@ -106,44 +106,49 @@
     </script>
     <script>
         //var csv = require('jquery-csv');
-        var chrt2 = document.getElementById("chartId2").getContext("2d");
-        var NCoords = JSON.parse(sessionStorage.getItem('kinkCoords'));
-        console.log(NCoords);
-        var chartId2 = new Chart(chrt2, {
-            type: 'scatter',
-            data: {
-                labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
-                datasets: [{
-                    label: "online tutorial subjects",
-                    data: NCoords,
-                    backgroundColor: ['pink'],
-                    borderColor: ['black'],
-                    radius: 8,
-                }],
-            },
-            options: {
-                responsive: false,
-                scales: {
-                    x: {
-                        type: 'linear',
-                        position: 'bottom'
+
+        getCoords(JSON.parse(sessionStorage.getItem('kinkNames')))
+            .then(coords => {
+                const chrt2 = document.getElementById("chartId2").getContext("2d");
+
+                new Chart(chrt2, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: "online tutorial subjects",
+                            data: coords,
+                            backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen', 'gold', 'lightblue'],
+                            borderColor: ['black'],
+                            radius: 8,
+                        }],
                     },
-                },
-                plugins: {
-                    legend: {
-                        position: 'bottom', // Position of the legend
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return chartId2.data.labels[context.dataIndex];
+                    options: {
+                        responsive: false,
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom'
+                            },
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return chartId.data.labels[context.dataIndex];
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-            },
-        });
-
+                    },
+                });
+            })
+            .catch(error => {
+                console.error('Error getting coordinates:', error);
+            });
+            
     </script>
 </body>
 </html>
