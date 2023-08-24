@@ -14,7 +14,13 @@ function Coords(kinkNames) {
         .then(response => response.json())
         .then(data => {
             const filteredEntries = data.filter(entry => kinkNames.includes(entry.Thing));
-            return filteredEntries.map(entry => ({ x: entry.tabooness, y: entry.popularity }));
+            const coordsArray = [];
+
+            filteredEntries.forEach(entry => {
+                coordsArray.push({ x: entry.tabooness, y: entry.popularity });
+            });
+
+            return coordsArray;
         })
         .catch(error => {
             console.error('Error loading JSON:', error);
