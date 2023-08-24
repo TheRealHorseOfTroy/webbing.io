@@ -3,6 +3,7 @@
 <head>
     <title>Second Page</title>
     <script src="quiz-builder.js"></script>
+    <script src="S-stats.js"></script>
 </head>
 <body>
     <h1>Loser! welcome!</h1>
@@ -16,7 +17,6 @@
         // Add an event listener to the button
         document.getElementById("submit").addEventListener("click", function() {
             const selectedKinks = [];
-            
             // Loop through radio buttons with names in the format "kink0" to "kink246"
             for (let i = 0; i <= 246; i++) {
                 const inputName = 'kink' + i;
@@ -26,8 +26,13 @@
                     selectedKinks.push(checkedInput.value);
                 }
             }
+            const kinkNames = trimNames(selectedKinks);
+            const kinkValues = trimValues(selectedKinks);
+            const kinkCoords = getCoords(kinkNames);
             
-            sessionStorage.setItem('selectedKinks', JSON.stringify(selectedKinks));
+            sessionStorage.setItem('kinkNames', JSON.stringify(kinkNames));
+            sessionStorage.setItem('kinkValues', JSON.stringify(kinkValues));
+            sessionStorage.setItem('kinkCoords', JSON.stringify(kinkCoords));
         
             // Navigate to the second page by replacing the current URL
             window.location.replace("S_Stats.html");

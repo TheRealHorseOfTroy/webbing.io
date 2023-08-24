@@ -1,106 +1,23 @@
-document.addEventListener('DOMContentLoaded', function() {
-    let filteredEntries; // Declare filteredEntries in an accessible scope
-    
-    // This ensures that the code runs after the DOM is fully loaded
-    const selectedKinksJSON = sessionStorage.getItem('selectedKinks');
-    const selectedKinks = JSON.parse(selectedKinksJSON);
+// Function to remove the first word from each string in the array
+function trimNames(selectedKinks) {
+    return selectedKinks.map(kink => kink.split(' ').slice(1).join(' '));
+}
 
-    // Process selected kinks to remove the first word from each item
-    const processedKinks = selectedKinks.map(kink => kink.split(' ').slice(1).join(' '));
-    
-    displaySelectedKinks(processedKinks);
-    loadJson(processedKinks)
-    // Function to get new coordinates
+// Function to get only the first word from each string in the array
+function trimValues(selectedKinks) {
+    return selectedKinks.map(kink => kink.split(' ')[0]);
+}
 
-
-    // Function to display selected kinks
-    function displaySelectedKinks(selectedKinks) {
-        const selectedKinksList = document.getElementById('selectedKinksList');
-
-        if (selectedKinks && selectedKinks.length > 0) {
-            selectedKinks.forEach(k => {
-                const listItem = document.createElement('li');
-                listItem.textContent = k;
-                selectedKinksList.appendChild(listItem);
-            });
-        } else {
-            const message = document.createElement('p');
-            message.textContent = 'No kinks selected.';
-            selectedKinksList.appendChild(message);
-        }
-    }
-
-    // Function to load JSON data
-    function loadJson(selectedKinks) {
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                // Filter and store the data in filteredEntries
-                filteredEntries = data.filter(entry => selectedKinks.includes(entry.Thing));
-                filterAndDisplayJson(filteredEntries);
-            })
-            .catch(error => console.error('Error loading JSON:', error));
-    }
-
-    // Function to filter and display JSON data
-    function filterAndDisplayJson(jsonData, selectedKinks) {
-        const filteredEntries = jsonData.filter(entry => selectedKinks.includes(entry.Thing));
-
-        const jsonContentDiv = document.getElementById('jsonContent');
-        if (filteredEntries.length > 0) {
-            // Collect taboo and popularity values for selected entries
-            const tabooValues = filteredEntries.map(entry => entry.tabooness);
-            const popularityValues = filteredEntries.map(entry => entry.popularity);
-
-            // Display taboo and popularity values
-            const tabooList = document.createElement('ul');
-            const popularityList = document.createElement('ul');
-
-            tabooValues.forEach(value => {
-                const listItem = document.createElement('li');
-                listItem.textContent = value;
-                tabooList.appendChild(listItem);
-            });
-
-            popularityValues.forEach(value => {
-                const listItem = document.createElement('li');
-                listItem.textContent = value;
-                popularityList.appendChild(listItem);
-            });
-
-            jsonContentDiv.innerHTML = `
-                <h2>Taboo Values</h2>
-                ${tabooList.outerHTML}
-                <h2>Popularity Values</h2>
-                ${popularityList.outerHTML}
-            `;
-        } else {
-            jsonContentDiv.textContent = 'No matching entries found.';
-        }
-    }
-
-    function getNew() {
-        const newCoordsArray = [];
-        
-        // Use the filteredEntries directly here
-        filteredEntries.forEach(entry => {
-            newCoordsArray.push({ x: entry.tabooness, y: entry.popularity });
+// Function to load JSON data and get coordinates based on selected kink names
+function getCoords(kinkNames) {
+    return fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            const filteredEntries = data.filter(entry => kinkNames.includes(entry.Thing));
+            return filteredEntries.map(entry => ({ x: entry.tabooness, y: entry.popularity }));
+        })
+        .catch(error => {
+            console.error('Error loading JSON:', error);
+            return [];
         });
-
-        // Do something with newCoordsArray if needed
-        console.log(newCoordsArray);
-    }
-
-    // Get a reference to the "Get New Coordinates" button
-    const getNewButton = document.getElementById('getNewButton');
-
-    // Add a click event listener to the button
-    getNewButton.addEventListener('click', function() {
-        // Call the getNew function here
-        const newCoords = getNew(filteredEntries); // Make sure filteredEntries is available here
-
-        // Do something with newCoords if needed
-        console.log(newCoords);
-    });
-
-});
+}
