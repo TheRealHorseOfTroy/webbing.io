@@ -6,24 +6,12 @@
 <body>
     <div class="chart-container">
         <canvas id="chartId" aria-label="chart" height="600" width="1200"></canvas>
-        <div class="data-label" id="dataLabelContainer"></div>\
-        </div>
-
+        <div class="data-label" id="dataLabelContainer"></div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
 
     <script>
-        // Function to remove the first word from each string in the array
-        function trimNames(selectedKinks) {
-            return selectedKinks.map(kink => kink.split(' ').slice(1).join(' '));
-        }
-
-        // Function to get only the first word from each string in the array
-        function trimValues(selectedKinks) {
-            return selectedKinks.map(kink => kink.split(' ')[0]);
-        }
-
-        // Function to load JSON data and get coordinates based on selected kink names
         function getCoords(kinkNames) {
             return fetch('data.json')
                 .then(response => response.json())
@@ -37,53 +25,48 @@
                 });
         }
 
-        // Test the getCoords function
-        const testKinkNames = ["guns"]; // Replace with your kink names
+        const testKinkNames = ["guns"];
         getCoords(testKinkNames)
             .then(coords => {
-                console.log('Coordinates:', coords);
-            });
-        const coooords = getCoords(testKinkNames);
-    </script>
-       
-    <script>
-        //var csv = require('jquery-csv');
-        var chrt = document.getElementById("chartId").getContext("2d");
-        var KCoords =  coooords;
-        var chartId = new Chart(chrt, {
-            type: 'scatter',
-            data: {
-                labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
-                datasets: [{
-                    label: "online tutorial subjects",
-                    data: KCoords,
-                    backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen', 'gold', 'lightblue'],
-                    borderColor: ['black'],
-                    radius: 8,
-                }],
-            },
-            options: {
-                responsive: false,
-                scales: {
-                    x: {
-                        type: 'linear',
-                        position: 'bottom'
+                const chrt = document.getElementById("chartId").getContext("2d");
+
+                new Chart(chrt, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: "online tutorial subjects",
+                            data: coords,
+                            backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen', 'gold', 'lightblue'],
+                            borderColor: ['black'],
+                            radius: 8,
+                        }],
                     },
-                },
-                plugins: {
-                    legend: {
-                        position: 'bottom', // Position of the legend
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return chartId.data.labels[context.dataIndex];
+                    options: {
+                        responsive: false,
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom'
+                            },
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return chartId.data.labels[context.dataIndex];
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-            },
-        });
+                    },
+                });
+            })
+            .catch(error => {
+                console.error('Error getting coordinates:', error);
+            });
     </script>
 </body>
 </html>
