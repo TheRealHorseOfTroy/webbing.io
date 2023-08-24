@@ -1,24 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
+    let filteredEntries; // Declare filteredEntries in an accessible scope
+    
     // This ensures that the code runs after the DOM is fully loaded
     const selectedKinksJSON = sessionStorage.getItem('selectedKinks');
     const selectedKinks = JSON.parse(selectedKinksJSON);
 
     // Process selected kinks to remove the first word from each item
     const processedKinks = selectedKinks.map(kink => kink.split(' ').slice(1).join(' '));
-
-    displaySelectedKinks(processedKinks);
-    loadJson(processedKinks);
-
-    // Function to get new coordinates
-    function getNew(filteredEntries) {
-        const newCoordsArray = [];
-        
-        filteredEntries.forEach(entry => {
-            newCoordsArray.push({ x: entry.tabooness, y: entry.popularity });
-        });
     
-        return newCoordsArray;
-    }
+    displaySelectedKinks(processedKinks);
+    loadJson(processedKinks)
+    // Function to get new coordinates
+
 
     // Function to display selected kinks
     function displaySelectedKinks(selectedKinks) {
@@ -41,7 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadJson(selectedKinks) {
         fetch('data.json')
             .then(response => response.json())
-            .then(data => filterAndDisplayJson(data, selectedKinks))
+            .then(data => {
+                // Filter and store the data in filteredEntries
+                filteredEntries = data.filter(entry => selectedKinks.includes(entry.Thing));
+                filterAndDisplayJson(filteredEntries);
+            })
             .catch(error => console.error('Error loading JSON:', error));
     }
 
@@ -80,6 +77,18 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             jsonContentDiv.textContent = 'No matching entries found.';
         }
+    }
+
+    function getNew() {
+        const newCoordsArray = [];
+        
+        // Use the filteredEntries directly here
+        filteredEntries.forEach(entry => {
+            newCoordsArray.push({ x: entry.tabooness, y: entry.popularity });
+        });
+
+        // Do something with newCoordsArray if needed
+        console.log(newCoordsArray);
     }
 
     // Get a reference to the "Get New Coordinates" button
