@@ -20,15 +20,11 @@
     <h1>Stats</h1>
     
     <ul id="selectedKinksList"></ul>
-    <script src="S-stats.js"></script>
     <div id="jsonContent"></div>
     <script>
-        const selectedKinksList = document.getElementById('selectedKinksList'); // Correct the ID here
-        const selectedKinksJSON = sessionStorage.getItem('selectedKinks'); // Change 'selectedKinks' to 'selectedKinks'
-        const selectedKinks = JSON.parse(selectedKinksJSON);
-
-        if (selectedKinks && selectedKinks.length > 0) {
-            selectedKinks.forEach(k => {
+        const kinkNames = JSON.parse(kinkNamesJSON);  
+        if (kinkNames> 0) {
+            kinkNames.forEach(k => {
                 const listItem = document.createElement('li');
                 listItem.textContent = k;
                 selectedKinksList.appendChild(listItem);
@@ -55,7 +51,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
     <script src="maths.js"></script>
-    <script src="jquery-csv.js"></script>
     <script>
         //var csv = require('jquery-csv');
         var chrt = document.getElementById("chartId").getContext("2d");
@@ -99,7 +94,7 @@
     <script>
         //var csv = require('jquery-csv');
         var chrt2 = document.getElementById("chartId2").getContext("2d");
-        var NCoords = getNew();
+        var NCoords = JSON.parse(sessionStorage.getItem('kinkCoords'));
         var chartId2 = new Chart(chrt2, {
             type: 'scatter',
             data: {
