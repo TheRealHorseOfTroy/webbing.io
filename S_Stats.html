@@ -108,6 +108,7 @@
         //var csv = require('jquery-csv');
         var chrt2 = document.getElementById("chartId2").getContext("2d");
         var NCoords = JSON.parse(sessionStorage.getItem('kinkCoords'));
+        console.log(NCoords);
         var chartId2 = new Chart(chrt2, {
             type: 'scatter',
             data: {
