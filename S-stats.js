@@ -10,17 +10,12 @@ function trimValues(selectedKinks) {
 
 // Function to load JSON data and get coordinates based on selected kink names
 function Coords(kinkNames) {
+
     return fetch('data.json')
         .then(response => response.json())
         .then(data => {
             const filteredEntries = data.filter(entry => kinkNames.includes(entry.Thing));
-            const coordsArray = [];
-
-            filteredEntries.forEach(entry => {
-                coordsArray.push({ x: entry.tabooness, y: entry.popularity });
-            });
-
-            return coordsArray;
+            return filteredEntries.map(entry => ({ x: entry.tabooness, y: entry.popularity }));
         })
         .catch(error => {
             console.error('Error loading JSON:', error);
