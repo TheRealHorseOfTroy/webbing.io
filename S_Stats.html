@@ -64,6 +64,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
     <script src="maths.js"></script>
+    <script src="S-stats.js"></script>
     <script>
         //var csv = require('jquery-csv');
         var chrt = document.getElementById("chartId").getContext("2d");
@@ -106,8 +107,9 @@
     </script>
     <script>
         //var csv = require('jquery-csv');
-
-        getCoords(JSON.parse(sessionStorage.getItem('kinkNames')))
+        const names = JSON.parse(sessionStorage.getItem('kinkNames'));
+        console.log(names);
+        Coords(names)
             .then(coords => {
                 const chrt2 = document.getElementById("chartId2").getContext("2d");
 
@@ -137,7 +139,7 @@
                             tooltip: {
                                 callbacks: {
                                     label: function(context) {
-                                        return chartId.data.labels[context.dataIndex];
+                                        return chartId2.data.labels[context.dataIndex];
                                     }
                                 }
                             }
