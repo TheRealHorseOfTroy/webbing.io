@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test getCoords Function</title>
+</head>
+<body>
+    <div class="chart-container">
+        <canvas id="chartId" aria-label="chart" height="600" width="1200"></canvas>
+        <div class="data-label" id="dataLabelContainer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
+
+    <script>
+        function getCoords(kinkNames) {
+            return fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+                    const filteredEntries = data.filter(entry => kinkNames.includes(entry.Thing));
+                    return filteredEntries.map(entry => ({ x: entry.tabooness, y: entry.popularity }));
+                })
+                .catch(error => {
+                    console.error('Error loading JSON:', error);
+                    return [];
+                });
+        }
+
+        const testKinkNames = ["guns"];
+        getCoords(testKinkNames)
+            .then(coords => {
+                const chrt = document.getElementById("chartId").getContext("2d");
+
+                new Chart(chrt, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: "online tutorial subjects",
+                            data: coords,
+                            backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen', 'gold', 'lightblue'],
+                            borderColor: ['black'],
+                            radius: 8,
+                        }],
+                    },
+                    options: {
+                        responsive: false,
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom'
+                            },
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return chartId.data.labels[context.dataIndex];
+                                    }
+                                }
+                            }
+                        }
+                    },
+                });
+            })
+            .catch(error => {
+                console.error('Error getting coordinates:', error);
+            });
+    </script>
+</body>
+</html>
