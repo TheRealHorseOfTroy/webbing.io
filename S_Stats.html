@@ -22,6 +22,7 @@
     <ul id="selectedKinksList"></ul>
     <div id="nCoordsOutput"></div>
     <script>
+        console.log(sessionStorage.getItem('kinkNames'));
         const selectedKinksList = document.getElementById('selectedKinksList'); // Get the selectedKinksList element
         
         const kinkNamesJSON = sessionStorage.getItem('kinkNames'); // Retrieve kinkNames from sessionStorage
