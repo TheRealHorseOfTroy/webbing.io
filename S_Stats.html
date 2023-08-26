@@ -62,6 +62,11 @@
         // Chart 2
         Coords(kinkNames)
             .then(coords => {
+                const dataWithLabels = coords.map((coord, index) => ({
+                    x: coord.x, // Assuming x property is present in your coords array
+                    y: coord.y, // Assuming y property is present in your coords array
+                    label: kinkNames[index] // Use the label from kinkNames based on index
+                }));
                 Highcharts.chart('chartId2', {
                     chart: {
                         type: 'scatter'
