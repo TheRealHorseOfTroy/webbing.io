@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stats</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+        }
+
+        .data-label {
+            position: absolute;
+            font-size: 12px;
+            text-align: center;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stats</h1>
+    
+    <ul id="selectedKinksList"></ul>
+    <div id="nCoordsOutput"></div>
+    <script>
+        console.log(sessionStorage.getItem('kinkNames'));
+        const selectedKinksList = document.getElementById('selectedKinksList'); // Get the selectedKinksList element
+        
+        const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
+    
+        if (kinkNames && kinkNames.length > 0) { // Check if the array is not empty
+            kinkNames.forEach(k => {
+                const listItem = document.createElement('li');
+                listItem.textContent = k;
+                selectedKinksList.appendChild(listItem);
+            });
+        } else {
+            const message = document.createElement('p');
+            message.textContent = 'No kinks selected.';
+            selectedKinksList.appendChild(message);
+        }
+
+        var NCoords = JSON.parse(sessionStorage.getItem('kinkCoords'));
+        var nCoordsOutput = document.getElementById('nCoordsOutput'); // Get the element
+
+        if (NCoords && NCoords.length > 0) {
+            nCoordsOutput.textContent = "NCoords: " + JSON.stringify(NCoords); // Display the contents
+        } else {
+            nCoordsOutput.textContent = "No NCoords available.";
+        }
+    </script>
+
+    <!-- Setting up spaces for both graphs -->
+    
+    <div class="chart-container">
+        <div id="chartId" style="width: 1200px; height: 600px;"></div>
+    </div>
+    <div class="chart-container2">
+        <div id="chartId2" style="width: 1200px; height: 600px;"></div>
+    </div>
+
+    <script src="maths.js"></script>
+    <script src="S-stats.js"></script>
+    <script>
+        // var csv = require('jquery-csv');
+        const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
+        const kinkCoords = getCoords();
+
+        // Chart 1
+        Highcharts.chart('chartId', {
+            chart: {
+                type: 'scatter'
+            },
+            title: {
+                text: 'Kink Coordinates Chart'
+            },
+            xAxis: {
+                title: {
+                    text: 'X Axis'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Y Axis'
+                }
+            },
+            series: [{
+                name: 'Kinks',
+                data: kinkCoords,
+                color: 'rgba(75, 192, 192, 0.7)',
+                marker: {
+                    radius: 8
+                }
+            }]
+        });
+
+        // Chart 2
+        Coords(kinkNames)
+            .then(coords => {
+                Highcharts.chart('chartId2', {
+                    chart: {
+                        type: 'scatter'
+                    },
+                    title: {
+                        text: 'Kinks Coordinates Chart 2'
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'X Axis'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Y Axis'
+                        }
+                    },
+                    series: [{
+                        name: 'Kinks 2',
+                        data: coords,
+                        color: 'rgba(75, 192, 192, 0.7)',
+                        marker: {
+                            radius: 8
+                        }
+                    }]
+                });
+            })
+            .catch(error => {
+                console.error('Error getting coordinates:', error);
+            });
+    </script>
+</body>
+</html>
