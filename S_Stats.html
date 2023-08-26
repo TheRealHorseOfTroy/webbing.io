@@ -67,13 +67,17 @@
             },
             xAxis: {
                 title: {
-                    text: 'X Axis'
-                }
-            },
+                    text: 'Tabooness'
+                },
+                max:100
+                    },
             yAxis: {
                 title: {
-                    text: 'Y Axis'
-                }
+                    text: 'Popularity'
+                },
+                type: 'logarithmic', // Set the y-axis to logarithmic scale
+                min: 1,
+                max:90
             },
             series: [{
                 name: 'Kinks',
@@ -107,7 +111,7 @@
                         },
                         type: 'logarithmic', // Set the y-axis to logarithmic scale
                         min: 1,
-                        max:100
+                        max:90
                     },
                     series: [{
                         name: 'How popular are your kinks',
