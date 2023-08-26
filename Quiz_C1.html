@@ -9,25 +9,35 @@
     <button id="next">next</button>
     <div id="formContainer"></div>
 
-    <script>
-        const formContainer = document.getElementById('formContainer');
+    <body>
+    <h1>couple the first</h1>
+    <button id="next">next</button>
+    <div id="formContainer"></div>
+
+    <script>  const formContainer = document.getElementById('formContainer');
         const radioForm = buildQuiz(); // Use the function to build the form
         formContainer.appendChild(radioForm);
         // Add an event listener to the button
-        document.getElementById("next").addEventListener("click", function() {
-            const selectedKinksP1 = [];
-            
+        document.getElementById("submit").addEventListener("click", function() {
+            const selectedKinks = [];
             // Loop through radio buttons with names in the format "kink0" to "kink246"
             for (let i = 0; i <= 246; i++) {
                 const inputName = 'kink' + i;
                 const checkedInput = document.querySelector(`input[name="${inputName}"]:checked`);
                 
                 if (checkedInput) {
-                    selectedKinksP1.push(checkedInput.value);
+                    selectedKinks.push(checkedInput.value);
                 }
             }
+            const kinkNames = trimNames(selectedKinks);
+            const kinkValues = trimValues(selectedKinks);  
+            const kinkCoords = Coords(kinkNames);
+            console.log(kinkCoords);
+            console.log(kinkNames)
             
-            sessionStorage.setItem('selectedKinksP1', JSON.stringify(selectedKinksP1));
+            sessionStorage.setItem('kinkNames', JSON.stringify(kinkNames));
+            sessionStorage.setItem('kinkValues', JSON.stringify(kinkValues));
+            sessionStorage.setItem('kinkCoords', JSON.stringify(kinkCoords));
         
             // Navigate to the second page by replacing the current URL
             window.location.replace("Quiz_C2.html");

@@ -70,23 +70,3 @@ function getCoords(){
     
     return dataArray;
 }
-
-function loadCSV(){
-    const fs = require("fs");
-    const { parse } = require("csv-parse");
-    const data = [];
-
-    fs.createReadStream("data.csv")
-    .pipe(
-        parse({
-          delimiter: ",",
-          columns: true,
-          ltrim: true,
-        })
-    )
-    on("data", function (row) {
-        // This will push the object row into the array
-        data.push(row);
-      })
-    return data;
-}

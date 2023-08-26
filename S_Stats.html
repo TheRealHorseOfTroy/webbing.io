@@ -47,7 +47,7 @@
         <div id="chartId2" style="width: 1200px; height: 600px;"></div>
     </div>
     <div class="chart-container">
-        <div id="chartId" style="width: 1200px; height: 600px;"></div>
+        <div id="chartId" style="width:1500px; height: 1000px;"></div>
     </div>
     
 
@@ -66,6 +66,7 @@
                     x: coord.x, // Assuming x property is present in your coords array
                     y: coord.y, // Assuming y property is present in your coords array
                     label: kinkNames[index] // Use the label from kinkNames based on index
+                    //colour: kinkColours[index]
                 }));
                 Highcharts.chart('chartId2', {
                     chart: {
@@ -85,7 +86,6 @@
                             text: 'Popularity'
                         },
                         type: 'logarithmic', // Set the y-axis to logarithmic scale
-                        min: 1,
                         max:90
                     },
                     series: [{
@@ -97,7 +97,8 @@
                         },
                         dataLabels: {
                             enabled: true, // Enable data labels
-                            format: '{point.label}' // Use the label from the data point
+                            format: '{point.label}', // Use the label from the data point
+                            allowOverlap: true
                         }
                     }],
                     tooltip: {
@@ -130,7 +131,7 @@
                     text: 'Popularity'
                 },
                 type: 'logarithmic', // Set the y-axis to logarithmic scale
-                min: 1,
+                min:0.1,
                 max:90
             },
             series: [{
@@ -142,12 +143,13 @@
                         },
                         dataLabels: {
                             enabled: true, // Enable data labels
-                            format: '{point.value}' // Use the label from the data point
+                            format: '{point.value}', // Use the label from the data point
+                            allowOverlap: true
                         }
                     }],
                     tooltip: {
                         formatter: function() {
-                            return this.point.label;
+                            return this.point.value;
                         }
                     }
                 });
