@@ -90,12 +90,21 @@
                     },
                     series: [{
                         name: 'How popular are your kinks',
-                        data: coords,
+                        data: dataWithLabels,
                         color: 'rgba(75, 192, 192, 0.7)',
                         marker: {
                             radius: 8
+                        },
+                        dataLabels: {
+                            enabled: true, // Enable data labels
+                            format: '{point.label}' // Use the label from the data point
                         }
-                    }]
+                    }],
+                    tooltip: {
+                        formatter: function() {
+                            return this.point.label;
+                        }
+                    }
                 });
             })
             .catch(error => {
