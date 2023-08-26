@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
     <title>Stats</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <style>
         .chart-container {
             position: relative;
@@ -39,121 +39,89 @@
             selectedKinksList.appendChild(message);
         }
 
-        var NCoords = JSON.parse(sessionStorage.getItem('kinkCoords'));
-    var nCoordsOutput = document.getElementById('nCoordsOutput'); // Get the element
-
-    if (NCoords && NCoords.length > 0) {
-        nCoordsOutput.textContent = "NCoords: " + JSON.stringify(NCoords); // Display the contents
-    } else {
-        nCoordsOutput.textContent = "No NCoords available.";
-    }
+        
     </script>
 
-   <!-- Setting up spaces for both graphs -->
-
-     <div class="chart-container">
-        <canvas id="chartId" aria-label="chart" height="600" width="1200"></canvas>
-        <div class="data-label" id="dataLabelContainer"></div>\
+    <!-- Setting up spaces for both graphs -->
+    
+    <div class="chart-container">
+        <div id="chartId" style="width: 1200px; height: 600px;"></div>
     </div>
     <div class="chart-container2">
-        <canvas id="chartId2" aria-label="chart" height="600" width="1200"></canvas>
-        <div class="data-label2" id="dataLabelContainer2"></div>
+        <div id="chartId2" style="width: 1200px; height: 600px;"></div>
     </div>
 
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
     <script src="maths.js"></script>
     <script src="S-stats.js"></script>
     <script>
-        //var csv = require('jquery-csv');
-        var chrt = document.getElementById("chartId").getContext("2d");
-        var KCoords = getCoords();
-        var chartId = new Chart(chrt, {
-            type: 'scatter',
-            data: {
-                labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
-                datasets: [{
-                    label: "online tutorial subjects",
-                    data: KCoords,
-                    backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen', 'gold', 'lightblue'],
-                    borderColor: ['black'],
-                    radius: 8,
-                }],
+        const kinkCoords = getCoords();
+        console.log(kinkCoords);
+
+        // Chart 1
+        Highcharts.chart('chartId', {
+            chart: {
+                type: 'scatter'
             },
-            options: {
-                responsive: false,
-                scales: {
-                    x: {
-                        type: 'linear',
-                        position: 'bottom'
-                    },
-                },
-                plugins: {
-                    legend: {
-                        position: 'bottom', // Position of the legend
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return chartId.data.labels[context.dataIndex];
-                            }
-                        }
-                    }
+            title: {
+                text: 'Kink Coordinates Chart'
+            },
+            xAxis: {
+                title: {
+                    text: 'X Axis'
                 }
             },
+            yAxis: {
+                title: {
+                    text: 'Y Axis'
+                }
+            },
+            series: [{
+                name: 'Kinks',
+                data: kinkCoords,
+                color: 'rgba(75, 192, 192, 0.7)',
+                marker: {
+                    radius: 8
+                }
+            }]
         });
 
-    </script>
-    <script>
-        //var csv = require('jquery-csv');
-        const names = JSON.parse(sessionStorage.getItem('kinkNames'));
-        console.log(names);
-        Coords(names)
+        // Chart 2
+        Coords(kinkNames)
             .then(coords => {
-                const chrt2 = document.getElementById("chartId2").getContext("2d");
-
-                var chartId2 =new Chart(chrt2, {
-                    type: 'scatter',
-                    data: {
-                        datasets: [{
-                            label: "online tutorial subjects",
-                            data: coords,
-                            backgroundColor: ['yellow', 'aqua', 'pink', 'lightgreen', 'gold', 'lightblue'],
-                            borderColor: ['black'],
-                            radius: 8,
-                        }],
+                Highcharts.chart('chartId2', {
+                    chart: {
+                        type: 'scatter'
                     },
-                    options: {
-                        responsive: false,
-                        scales: {
-                            x: {
-                                type: 'linear',
-                                position: 'bottom',
-                                max: 100
-                            },
+                    title: {
+                        text: 'Kinks Coordinates Chart 2'
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Tabooness'
                         },
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return chartId2.data.labels[context.dataIndex];
-                                    }
-                                }
-                            }
-                        }
+                        max:100
                     },
+                    yAxis: {
+                        title: {
+                            text: 'Popularity'
+                        },
+                        type: 'logarithmic', // Set the y-axis to logarithmic scale
+                        min: 1,
+                        max,100
+                    },
+                    series: [{
+                        name: 'How popular are your kinks',
+                        data: coords,
+                        color: 'rgba(75, 192, 192, 0.7)',
+                        marker: {
+                            radius: 8
+                        }
+                    }]
                 });
             })
             .catch(error => {
                 console.error('Error getting coordinates:', error);
             });
-            
     </script>
 </body>
 </html>
-
-
