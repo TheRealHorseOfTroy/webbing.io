@@ -55,7 +55,7 @@ function maths(){
 function getCoords(){
     const dataArray = [];
     for (let i = 0; i < taboo.length; i++) {
-        dataArray.push({ x: taboo[i], y: popularity[i],value: kinks[i]});
+        dataArray.push({ x: taboo[i], y: popularity[i], value: kinks[i]});
     }
     const data = [
         { x: 10, y: 14 },
