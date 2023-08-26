@@ -43,13 +43,13 @@
     </script>
 
     <!-- Setting up spaces for both graphs -->
-    
-    <div class="chart-container">
-        <div id="chartId" style="width: 1200px; height: 600px;"></div>
-    </div>
     <div class="chart-container2">
         <div id="chartId2" style="width: 1200px; height: 600px;"></div>
     </div>
+    <div class="chart-container">
+        <div id="chartId" style="width: 1200px; height: 600px;"></div>
+    </div>
+    
 
     <script src="maths.js"></script>
     <script src="S-stats.js"></script>
@@ -57,37 +57,7 @@
         const kinkCoords = getCoords();
         console.log(kinkCoords);
 
-        // Chart 1
-        Highcharts.chart('chartId', {
-            chart: {
-                type: 'scatter'
-            },
-            title: {
-                text: 'Kink Coordinates Chart'
-            },
-            xAxis: {
-                title: {
-                    text: 'Tabooness'
-                },
-                max:100
-                    },
-            yAxis: {
-                title: {
-                    text: 'Popularity'
-                },
-                type: 'logarithmic', // Set the y-axis to logarithmic scale
-                min: 1,
-                max:90
-            },
-            series: [{
-                name: 'Kinks',
-                data: kinkCoords,
-                color: 'rgba(75, 192, 192, 0.7)',
-                marker: {
-                    radius: 8
-                }
-            }]
-        });
+       
 
         // Chart 2
         Coords(kinkNames)
@@ -97,7 +67,7 @@
                         type: 'scatter'
                     },
                     title: {
-                        text: 'Kinks Coordinates Chart 2'
+                        text: 'Your Kinks'
                     },
                     xAxis: {
                         title: {
@@ -126,6 +96,38 @@
             .catch(error => {
                 console.error('Error getting coordinates:', error);
             });
+
+        // Full chart
+        Highcharts.chart('chartId', {
+            chart: {
+                type: 'scatter'
+            },
+            title: {
+                text: 'All Kinks'
+            },
+            xAxis: {
+                title: {
+                    text: 'Tabooness'
+                },
+                max:100
+                    },
+            yAxis: {
+                title: {
+                    text: 'Popularity'
+                },
+                type: 'logarithmic', // Set the y-axis to logarithmic scale
+                min: 1,
+                max:90
+            },
+            series: [{
+                name: 'Kinks',
+                data: kinkCoords,
+                color: 'rgba(75, 192, 192, 0.7)',
+                marker: {
+                    radius: 8
+                }
+            }]
+        });
     </script>
 </body>
 </html>

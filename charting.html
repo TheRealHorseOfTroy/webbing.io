@@ -55,7 +55,6 @@
     <script src="S-stats.js"></script>
     <script>
         const kinkCoords = getCoords();
-        console.log(kinkCoords);
 
         // Chart 1
         Highcharts.chart('chartId', {
@@ -88,6 +87,11 @@
         // Chart 2
         Coords(kinkNames)
             .then(coords => {
+                const dataWithLabels = coords.map((coord, index) => ({
+                    x: coord.x, // Assuming x property is present in your coords array
+                    y: coord.y, // Assuming y property is present in your coords array
+                    label: kinkNames[index] // Use the label from kinkNames based on index
+                }));
                 Highcharts.chart('chartId2', {
                     chart: {
                         type: 'scatter'
@@ -107,7 +111,7 @@
                     },
                     series: [{
                         name: 'Kinks 2',
-                        data: coords,
+                        data: dataWithLabels,
                         color: 'rgba(75, 192, 192, 0.7)',
                         marker: {
                             radius: 8
