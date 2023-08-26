@@ -39,14 +39,7 @@
             selectedKinksList.appendChild(message);
         }
 
-        var NCoords = JSON.parse(sessionStorage.getItem('kinkCoords'));
-        var nCoordsOutput = document.getElementById('nCoordsOutput'); // Get the element
-
-        if (NCoords && NCoords.length > 0) {
-            nCoordsOutput.textContent = "NCoords: " + JSON.stringify(NCoords); // Display the contents
-        } else {
-            nCoordsOutput.textContent = "No NCoords available.";
-        }
+        
     </script>
 
     <!-- Setting up spaces for both graphs -->
@@ -64,6 +57,7 @@
         // var csv = require('jquery-csv');
         const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
         const kinkCoords = getCoords();
+        console.log(kinkCoords);
 
         // Chart 1
         Highcharts.chart('chartId', {
