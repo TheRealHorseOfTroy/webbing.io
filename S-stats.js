@@ -41,9 +41,9 @@ function SgetCols(kinkValues, selectedColors){
     const colours = []
 
     for (const index in kinkValues) {
-        const rgbaValue = singlecolorPreferences[selectedColors[index]][kinkValues[index]];
+        const rgbaValue = singlecolorPreferences[selectedColors][kinkValues[0]];
  
-        colours.push(rgbaValue);
+       colours.push(rgbaValue);
     }
     return colours;
 
