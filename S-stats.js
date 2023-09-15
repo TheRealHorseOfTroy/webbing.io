@@ -22,11 +22,28 @@ function Coords(kinkNames) {
             return [];
         });
 }
-function getCols(kinkValues, selectedColors){
+
+const singlecolorPreferences = {
+    red: {
+        love: "rgba(255, 0, 0, 1.0)", // Stronger shade of red for love
+        like: "rgba(255, 0, 0, 0.5)" // Lighter shade of red for like
+    },
+    green: {
+        love: "rgba(0, 255, 0, 1.0)", // Stronger shade of green for love
+        like: "rgba(0, 255, 0, 0.5)" // Lighter shade of green for like
+    },
+    blue: {
+        love: "rgba(0, 0, 255, 1.0)", // Stronger shade of blue for love
+        like: "rgba(0, 0, 255, 0.5)" // Lighter shade of blue for like
+    }
+};
+function SgetCols(kinkValues, selectedColors){
     const colours = []
-    for (let v of kinkValues) {
-        const color =  "rgba(75, 192, 0, 0.7)";
-        colours.push(color);
+
+    for (const index in kinkValues) {
+        const rgbaValue = singlecolorPreferences[selectedColors[index]][kinkValues[index]];
+ 
+        colours.push(rgbaValue);
     }
     return colours;
 
