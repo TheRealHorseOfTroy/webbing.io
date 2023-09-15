@@ -21,12 +21,20 @@
     
     <ul id="selectedKinksList"></ul>
     <div id="nCoordsOutput"></div>
+
+    <script src="maths.js"></script>
+    <script src="S-stats.js"></script>
+  
     <script>
         console.log(sessionStorage.getItem('kinkNames'));
         const selectedKinksList = document.getElementById('selectedKinksList'); // Get the selectedKinksList element
+        const selectedColors = document.getElementById('selectedColors'); // Get the selectedKinksList element
+        
         
         const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
-    
+        const kinkValues = JSON.parse(sessionStorage.getItem('kinkValues'));
+        const kinkColours = getCols(kinkValues, selectedColors);
+
         if (kinkNames && kinkNames.length > 0) { // Check if the array is not empty
             kinkNames.forEach(k => {
                 const listItem = document.createElement('li');
@@ -51,9 +59,9 @@
     </div>
     
 
-    <script src="maths.js"></script>
-    <script src="S-stats.js"></script>
+    
     <script>
+        
         const kinkCoords = getCoords();
         console.log(kinkCoords);
 
@@ -65,8 +73,8 @@
                 const dataWithLabels = coords.map((coord, index) => ({
                     x: coord.x, // Assuming x property is present in your coords array
                     y: coord.y, // Assuming y property is present in your coords array
-                    label: kinkNames[index] // Use the label from kinkNames based on index
-                    //colour: kinkColours[index]
+                    label: kinkNames[index], // Use the label from kinkNames based on index
+                    color: kinkColours[index]
                 }));
                 Highcharts.chart('chartId2', {
                     chart: {
@@ -133,13 +141,14 @@
                 type: 'logarithmic', // Set the y-axis to logarithmic scale
                 min:0.1,
                 max:90
+                
             },
             series: [{
                         name: 'How popular are your kinks',
                         data: kinkCoords,
                         color: 'rgba(75, 192, 192, 0.7)',
                         marker: {
-                            radius: 8
+                            radius: 6
                         },
                         dataLabels: {
                             enabled: true, // Enable data labels

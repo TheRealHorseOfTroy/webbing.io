@@ -15,6 +15,9 @@
         formContainer.appendChild(radioForm);
         // Add an event listener to the button
         document.getElementById("pretend").addEventListener("click", function() {
+            const selectedColors = Array.from(document.querySelectorAll('input[name="colour"]:checked'))
+                .map(input => input.value);
+            sessionStorage.setItem('selectedColors', JSON.stringify(selectedColors));
             // Navigate to the second page by replacing the current URL
             window.location.replace("Quiz_C1.html");
         });

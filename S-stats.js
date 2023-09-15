@@ -22,3 +22,12 @@ function Coords(kinkNames) {
             return [];
         });
 }
+function getCols(kinkValues, selectedColors){
+    const colours = []
+    for (let v of kinkValues) {
+        const color =  "rgba(75, 192, 0, 0.7)";
+        colours.push(color);
+    }
+    return colours;
+
+}
