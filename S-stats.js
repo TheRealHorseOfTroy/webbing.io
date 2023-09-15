@@ -92,7 +92,7 @@ function SgetCols(kinkValues, selectedColors){
     const colours = []
 
     for (const index in kinkValues) {
-        const rgbaValue = singlecolorPreferences[selectedColors][kinkValues[0]];
+        const rgbaValue = singlecolorPreferences[selectedColors][kinkValues[index]];
  
        colours.push(rgbaValue);
     }
