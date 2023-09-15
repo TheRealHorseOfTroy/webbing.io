@@ -28,9 +28,9 @@
     <script>
         console.log(sessionStorage.getItem('kinkNames'));
         const selectedKinksList = document.getElementById('selectedKinksList'); // Get the selectedKinksList element
-        const selectedColors = document.getElementById('selectedColors'); // Get the selectedKinksList element
-        console.log(selectedColors);
+        console.log(sessionStorage.getItem('selectedColours'));
         
+        const selectedColors =  JSON.parse(sessionStorage.getItem('selectedColors')); // Get the selectedKinksList element
         const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
         const kinkValues = JSON.parse(sessionStorage.getItem('kinkValues'));
         const kinkColours = SgetCols(kinkValues, selectedColors);
