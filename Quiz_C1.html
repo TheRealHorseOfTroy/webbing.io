@@ -32,7 +32,7 @@
             const kinkValues = trimValues(selectedKinks);
 
             // Assuming selectedKinks is an array of objects with kink names as keys
-            for (let i = 0; i <= length(kinkNames); i++) {
+            for (let i = 0; i <= kinkNames.length; i++) {
                 const kv = kinkValues.get(i);
                 if(kv == 'like'){
                     kinksDataMap[kinkNames.get(i)] = {
