@@ -28,42 +28,48 @@
                 }
             } 
             const kinksDataMap = JSON.parse(sessionStorage.getItem('kinksDataMap'));
+            const kinkNames = trimNames(selectedKinks);
+            const kinkValues = trimValues(selectedKinks);
 
+          
             // Assuming selectedKinks is an array of objects with kink names as keys
-            for (const kink of selectedKinksP2) {
-                if (kinksDataMap.hasOwnProperty(kink.name)) {
-                    const curr = kinksDataMap[kink.name].value;
-                    //p1 love, p2 like
-                    if (curr === 1 && kink.value === 'like') {
-                        kinksDataMap[kink.name].value = 3;
-                    }
-                    //p1 like, p2 like
-                    if (curr === 2 && kink.value === 'like') {
-                        kinksDataMap[kink.name].value = 4;
-                    }
-                    //p1 love, p2 love
-                    if (curr === 1 && kink.value === 'love') {
-                        kinksDataMap[kink.name].value = 5;
-                    }
-                    //p1 like, p2 love
-                    if (curr === 2 && kink.value === 'love') {
-                        kinksDataMap[kink.name].value = 6;
-                    }
-                } else {
-                    const kv = trimValues(kink);
-                    let nu = 0;
-                    if (kv == 'like') {
-                        nu = 7;
+                for (let i = 0; i <= length(kinkNames); i++) {
+                    const kn = kinkNames.get(i)
+                    const kv = kinkValues.get(i);
+
+                    if (kinksDataMap.hasOwnProperty(kn)) {
+                        const curr = kinksDataMap[kn].value;
+                        //p1 love, p2 like
+                        if (curr === 1 && kv === 'like') {
+                            kinksDataMap[kn].value = 3;
+                        }
+                        //p1 like, p2 like
+                        if (curr === 2 && kv === 'like') {
+                            kinksDataMap[kn].value = 4;
+                        }
+                        //p1 love, p2 love
+                        if (curr === 1 && kv === 'love') {
+                            kinksDataMap[kn].value = 5;
+                        }
+                        //p1 like, p2 love
+                        if (curr === 2 && kv === 'love') {
+                            kinksDataMap[kn].value = 6;
+                        }
                     } else {
-                        nu = 9;
+                        const kv = trimValues(kink);
+                        let nu = 0;
+                        if (kv == 'like') {
+                            nu = 7;
+                        } else {
+                            nu = 9;
+                        }
+                        kinksDataMap[kn] = {
+                            name: kn,
+                            value: nu,
+                            coords: Coords(kn),
+                            colour: "#000000"
+                        };
                     }
-                    kinksDataMap[kink.name] = {
-                        name: kink.name,
-                        value: nu,
-                        coords: Coords(kink.name),
-                        colour: "#000000"
-                    };
-                }
             }
 
             sessionStorage.setItem('kinks2', JSON.stringify(kinksDataMap));

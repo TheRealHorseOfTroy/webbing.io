@@ -28,22 +28,24 @@
                 }
             }
             const kinksDataMap = {};
+            const kinkNames = trimNames(selectedKinks);
+            const kinkValues = trimValues(selectedKinks);
 
             // Assuming selectedKinks is an array of objects with kink names as keys
-            for (const kink of selectedKinks) {
-                const  kv = trimValues(kink);
+            for (let i = 0; i <= length(kinkNames); i++) {
+                const kv = kinkValues.get(i);
                 if(kv == 'like'){
-                    kinksDataMap[kink.name] = {
-                        name: kink.name,
+                    kinksDataMap[kinkNames.get(i)] = {
+                        name: kinkNames.get(i),
                         value: 2,
-                        coords: Coords(kink.name),
+                        coords: Coords(kinkNames.get(i)),
                         colour: "#000000"
                     };}
                 else{
-                    kinksDataMap[kink.name] = {
-                        name: kink.name,
+                    kinksDataMap[kinkNames.get(i)] = {
+                        name: kinkNames.get(i),
                         value: 1,
-                        coords: Coords(kink.name),
+                        coords: Coords(kinkNames.get(i)),
                         colour: "#000000"
                     };}
             }
