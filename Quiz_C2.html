@@ -27,17 +27,43 @@
                     selectedKinksP2.push(checkedInput.value);
                 }
             } 
-            const kinksDataMap2 = {};
+            const kinksDataMap = JSON.parse(sessionStorage.getItem('kinksDataMap'));
 
             // Assuming selectedKinks is an array of objects with kink names as keys
             for (const kink of selectedKinksP2) {
-                kinksDataMap2[kink.name] = {
-                    name: kink.name,
-                    value: trimValues(kink),
-                    coords: Coords(kink.name),
-                    colour: "#000000"
-                };
+                if (kinksDataMap.hasOwnProperty(kink.name)) {
+                    const curr = kinksDataMap[kink.name].value;
+                    //p1 love, p2 like
+                    if (curr === 1 && selectedKinksP2.value === 'like') {
+                        kinksDataMap[kink.name].value = 3;
+                    }
+                    //p1 like, p2 like
+                    if (curr === 2 && selectedKinksP2.value === 'like') {
+                        kinksDataMap[kink.name].value = 4;
+                    }
+                    //p1 love, p2 love
+                    if (curr === 1 && selectedKinksP2.value === 'love') {
+                        kinksDataMap[kink.name].value = 5;
+                    }
+                    //p1 like, p2 love
+                    if (curr === 2 && selectedKinksP2.value === 'love') {
+                        kinksDataMap[kink.name].value = 6;
+                    }
+                } else {
+                    const  kv = trimValues(kink);
+                    const nu = 0;
+                    if(kv == 'like'){
+                        nu = 7;}
+                    else{n=9;}
+                    kinksDataMap[kink.name] = {
+                        name: kink.name,
+                        value: nu, // Set the value to 5
+                        coords: Coords(kink.name),
+                        colour: "#000000"
+                    };
+                }
             }
+
             sessionStorage.setItem('kinks2', JSON.stringify(kinksDataMap2));
             sessionStorage.setItem('selectedKinksP2', JSON.stringify(selectedKinksP2));
         

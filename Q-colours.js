@@ -2,7 +2,7 @@ function SingleCols() {
     const radioForm = document.createElement('form');
     radioForm.id = 'myForm'; // Set a unique ID for the form
 
-    const colours = ['red','green','pink']
+    const colours = ['red','green','pink', 'orange', 'blue', 'purple']
 
     // Create radio buttons for each animal
     colours.forEach(c => {
