@@ -5,8 +5,15 @@ function trimNames(selectedKinks) {
 
 // Function to get only the first word from each string in the array
 function trimValues(selectedKinks) {
-    return selectedKinks.map(kink => kink.split(' ')[0]);
+    if (Array.isArray(selectedKinks)) {
+        return selectedKinks.map(kink => kink.split(' ')[0]);
+    } else {
+        // Handle the case when selectedKinks is not an array
+        console.error("selectedKinks is not an array.");
+        return [];
+    }
 }
+
 
 // Function to load JSON data and get coordinates based on selected kink names
 function Coords(kinkNames) {
