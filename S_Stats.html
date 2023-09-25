@@ -26,14 +26,13 @@
     <script src="S-stats.js"></script>
   
     <script>
-        console.log(sessionStorage.getItem('kinkNames'));
         const selectedKinksList = document.getElementById('selectedKinksList'); // Get the selectedKinksList element
-        console.log(sessionStorage.getItem('selectedColours'));
-        
+   
         const selectedColors =  JSON.parse(sessionStorage.getItem('selectedColors')); // Get the selectedKinksList element
         const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
         const kinkValues = JSON.parse(sessionStorage.getItem('kinkValues'));
         const kinkColours = SgetCols(kinkValues, selectedColors);
+        console.log(kinkColours);
 
         if (kinkNames && kinkNames.length > 0) { // Check if the array is not empty
             kinkNames.forEach(k => {

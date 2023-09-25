@@ -25,7 +25,7 @@ function CoupleCols() {
     const radioForm = document.createElement('form');
     radioForm.id = 'myForm'; // Set a unique ID for the form
 
-    const lines = ['red-blue','green-purple','pink-orange']
+    const lines = ['redyellow','pinkpurple','yellowblue', 'pinkorange']
 
     // Create radio buttons for each animal
     lines.forEach(l => {

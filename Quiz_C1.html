@@ -29,15 +29,19 @@
                     selectedKinks.push(checkedInput.value);
                 }
             }
-            const kinkNames = trimNames(selectedKinks);
-            const kinkValues = trimValues(selectedKinks);  
-            const kinkCoords = Coords(kinkNames);
-            console.log(kinkCoords);
-            console.log(kinkNames)
-            
-            sessionStorage.setItem('kinkNames', JSON.stringify(kinkNames));
-            sessionStorage.setItem('kinkValues', JSON.stringify(kinkValues));
-            sessionStorage.setItem('kinkCoords', JSON.stringify(kinkCoords));
+            const kinksDataMap = {};
+
+            // Assuming selectedKinks is an array of objects with kink names as keys
+            for (const kink of selectedKinks) {
+                kinksDataMap[kink.name] = {
+                    name: kink.name,
+                    value: trimValues(kink),
+                    coords: Coords(kink.name),
+                    colour: "#000000"
+                };
+            }
+            sessionStorage.setItem('kinks', JSON.stringify(kinksDataMap));
+            sessionStorage.setItem('selectedKinks', JSON.stringify(selectedKinks));
         
             // Navigate to the second page by replacing the current URL
             window.location.replace("Quiz_C2.html");

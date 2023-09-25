@@ -26,8 +26,19 @@
                 if (checkedInput) {
                     selectedKinksP2.push(checkedInput.value);
                 }
+            } 
+            const kinksDataMap2 = {};
+
+            // Assuming selectedKinks is an array of objects with kink names as keys
+            for (const kink of selectedKinksP2) {
+                kinksDataMap2[kink.name] = {
+                    name: kink.name,
+                    value: trimValues(kink),
+                    coords: Coords(kink.name),
+                    colour: "#000000"
+                };
             }
-            
+            sessionStorage.setItem('kinks2', JSON.stringify(kinksDataMap2));
             sessionStorage.setItem('selectedKinksP2', JSON.stringify(selectedKinksP2));
         
             // Navigate to the second page by replacing the current URL

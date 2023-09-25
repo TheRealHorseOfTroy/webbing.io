@@ -15,7 +15,30 @@
     
     <ul id="selectedKinksP1List"></ul>
     <ul id="selectedKinksP2List"></ul>
-    
+
+    <script>
+        const selectedColors =  JSON.parse(sessionStorage.getItem('selectedColors')); // Get the selectedKinksList element
+
+        const selectedKinksList = document.getElementById('selectedKinksList'); // Get the selectedKinksList element
+        const selectedKinksList2 = document.getElementById('selectedKinksList2'); // Get the selectedKinksList element
+        const kinksDataMap = JSON.parse(sessionStorage.getItem('kinksDataMap'));
+        const kinksDataMap2 = JSON.parse(sessionStorage.getItem('kinksDataMap2'));
+        
+        if (kinkNames && kinkNames.length > 0) { // Check if the array is not empty
+            kinkNames.forEach(k => {
+                const listItem = document.createElement('li');
+                listItem.textContent = k;
+                selectedKinksList.appendChild(listItem);
+            });
+        } else {
+            const message = document.createElement('p');
+            message.textContent = 'No kinks selected.';
+            selectedKinksList.appendChild(message);
+        }
+
+        
+    </script>
+
     <script>
         function getP1(){
             const selectedKinksP1List = document.getElementById('selectedKinksP1List'); // Correct the ID here
