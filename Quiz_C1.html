@@ -9,10 +9,7 @@
     <button id="next">next</button>
     <div id="formContainer"></div>
 
-    <body>
-    <h1>couple the first</h1>
-    <button id="next">next</button>
-    <div id="formContainer"></div>
+ 
 
     <script>  const formContainer = document.getElementById('formContainer');
         const radioForm = buildQuiz(); // Use the function to build the form
@@ -33,12 +30,21 @@
 
             // Assuming selectedKinks is an array of objects with kink names as keys
             for (const kink of selectedKinks) {
-                kinksDataMap[kink.name] = {
-                    name: kink.name,
-                    value: trimValues(kink),
-                    coords: Coords(kink.name),
-                    colour: "#000000"
-                };
+                const  kv = trimValues(kink);
+                if(kv == 'like'){
+                    kinksDataMap[kink.name] = {
+                        name: kink.name,
+                        value: 2,
+                        coords: Coords(kink.name),
+                        colour: "#000000"
+                    };}
+                else{
+                    kinksDataMap[kink.name] = {
+                        name: kink.name,
+                        value: 1,
+                        coords: Coords(kink.name),
+                        colour: "#000000"
+                    };}
             }
             sessionStorage.setItem('kinks', JSON.stringify(kinksDataMap));
             sessionStorage.setItem('selectedKinks', JSON.stringify(selectedKinks));
