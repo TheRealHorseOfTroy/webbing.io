@@ -34,8 +34,8 @@
           
             // Assuming selectedKinks is an array of objects with kink names as keys
                 for (let i = 0; i <= kinkNames.length; i++) {
-                    const kn = kinkNames.get(i)
-                    const kv = kinkValues.get(i);
+                    const kn = kinkNames[i];
+                    const kv = kinkValues[i];
 
                     if (kinksDataMap.hasOwnProperty(kn)) {
                         const curr = kinksDataMap[kn].value;

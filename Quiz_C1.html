@@ -33,19 +33,20 @@
 
             // Assuming selectedKinks is an array of objects with kink names as keys
             for (let i = 0; i <= kinkNames.length; i++) {
-                const kv = kinkValues.get(i);
+                const kn = kinkNames[i];
+                const kv = kinkValues[i];
                 if(kv == 'like'){
-                    kinksDataMap[kinkNames.get(i)] = {
-                        name: kinkNames.get(i),
+                    kinksDataMap[kn] = {
+                        name: kn,
                         value: 2,
-                        coords: Coords(kinkNames.get(i)),
+                        coords: Coords(kn),
                         colour: "#000000"
                     };}
                 else{
-                    kinksDataMap[kinkNames.get(i)] = {
-                        name: kinkNames.get(i),
+                    kinksDataMap[kn] = {
+                        name: kn,
                         value: 1,
-                        coords: Coords(kinkNames.get(i)),
+                        coords: Coords(kn),
                         colour: "#000000"
                     };}
             }
