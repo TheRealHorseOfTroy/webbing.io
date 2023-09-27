@@ -27,31 +27,17 @@
                     selectedKinks.push(checkedInput.value);
                 }
             }
-            const kinksDataMap = {};
             const kinkNames = trimNames(selectedKinks);
             const kinkValues = trimValues(selectedKinks);
 
             // Assuming selectedKinks is an array of objects with kink names as keys
-            for (let i = 0; i <= kinkNames.length; i++) {
-                const kn = kinkNames[i];
-                const kv = kinkValues[i];
-                if(kv == 'like'){
-                    kinksDataMap[kn] = {
-                        name: kn,
-                        value: 2,
-                        coords: Coords(kn),
-                        colour: "#000000"
-                    };}
-                else{
-                    kinksDataMap[kn] = {
-                        name: kn,
-                        value: 1,
-                        coords: Coords(kn),
-                        colour: "#000000"
-                    };}
+            for (let i = 0; i <= kinkNames.length; i++){
+
+                if(kv == 'love'){kinkValues[i]= 1;}
+                else{kinkValues[i]= 2;}
             }
-            sessionStorage.setItem('kinks', JSON.stringify(kinksDataMap));
-            sessionStorage.setItem('selectedKinks', JSON.stringify(selectedKinks));
+            sessionStorage.setItem('kinkNamesp1', JSON.stringify(kinkNames));
+            sessionStorage.setItem('kinkValuesp1', JSON.stringify(kinkValues));
         
             // Navigate to the second page by replacing the current URL
             window.location.replace("Quiz_C2.html");

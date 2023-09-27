@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>2  Stats</title>
+    <title>Stats</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <style>
-        canvas {
-          border: 1px solid black;
+        .chart-container {
+            position: relative;
         }
-      </style>
+
+        .data-label {
+            position: absolute;
+            font-size: 12px;
+            text-align: center;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
     <h1>Stats</h1>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-    <canvas id="myChart" width="1000" height="600"></canvas>
     
-    <ul id="selectedKinksP1List"></ul>
-    <ul id="selectedKinksP2List"></ul>
+    <ul id="selectedKinksList"></ul>
+    <div id="nCoordsOutput"></div>
 
+    <script src="maths.js"></script>
+    <script src="S-stats.js"></script>
+  
     <script>
-        const selectedColors =  JSON.parse(sessionStorage.getItem('selectedColors')); // Get the selectedKinksList element
 
-        const selectedKinksList = document.getElementById('selectedKinksList'); // Get the selectedKinksList element
-        const selectedKinksList2 = document.getElementById('selectedKinksList2'); // Get the selectedKinksList element
+
         const kinksDataMap = JSON.parse(sessionStorage.getItem('kinksDataMap'));
-        const kinksDataMap2 = JSON.parse(sessionStorage.getItem('kinksDataMap2'));
-        
+
+        const selectedKinksList = document.getElementById('kinkNames'); // Get the selectedKinksList element
+        const selectedKinksListP2 = document.getElementById('kinkValues'); // Get the selectedKinksList element
+        const selectedColors =  JSON.parse(sessionStorage.getItem('selectedColors')); // Get the selectedKinksList element
+        const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
+        const kinkValues = JSON.parse(sessionStorage.getItem('kinkValues'));
+        const kinkColours = SgetCols(kinkValues, selectedColors);
+        console.log(kinkColours);
+
         if (kinkNames && kinkNames.length > 0) { // Check if the array is not empty
             kinkNames.forEach(k => {
                 const listItem = document.createElement('li');
@@ -39,49 +53,119 @@
         
     </script>
 
+    <!-- Setting up spaces for both graphs -->
+    <div class="chart-container2">
+        <div id="chartId2" style="width: 1200px; height: 600px;"></div>
+    </div>
+    <div class="chart-container">
+        <div id="chartId" style="width:1500px; height: 1000px;"></div>
+    </div>
+    
+
+    
     <script>
-        function getP1(){
-            const selectedKinksP1List = document.getElementById('selectedKinksP1List'); // Correct the ID here
-            const selectedKinksP1JSON = sessionStorage.getItem('selectedKinksP1'); // Change 'selectedKinks' to 'selectedKinks'
-            const selectedKinksP1 = JSON.parse(selectedKinksP1JSON);
-
-            if (selectedKinksP1 && selectedKinksP1.length > 0) {
-                selectedKinksP1.forEach(k => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = k;
-                    selectedKinksP1List.appendChild(listItem);
-                });
-            } else {
-                const message = document.createElement('p');
-                message.textContent = 'No kinks selected.';
-                selectedKinksP1List.appendChild(message);
-            }
-        }
-        function getP2(){
-            const selectedKinksP2List = document.getElementById('selectedKinksP2List'); // Correct the ID here
-            const selectedKinksP2JSON = sessionStorage.getItem('selectedKinksP2'); // Change 'selectedKinks' to 'selectedKinks'
-            const selectedKinksP2 = JSON.parse(selectedKinksP2JSON);
-
-            if (selectedKinksP2 && selectedKinksP2.length > 0) {
-                selectedKinksP2.forEach(k => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = k;
-                    selectedKinksP2List.appendChild(listItem);
-                });
-            } else {
-                const message = document.createElement('p');
-                message.textContent = 'No kinks selected.';
-                selectedKinksP2List.appendChild(message);
-            }
-        }
         
-        function draw() {
-          const canvas = document.getElementById("tutorial");
-          if (canvas.getContext) {
-            const ctx = canvas.getContext("2d");
-          }
-        }
-        window.addEventListener("load", draw);
-      </script>
+        const kinkCoords = getCoords();
+        console.log(kinkCoords);
+
+       
+
+        // Chart 2
+        Coords(kinkNames)
+            .then(coords => {
+                const dataWithLabels = coords.map((coord, index) => ({
+                    x: coord.x, // Assuming x property is present in your coords array
+                    y: coord.y, // Assuming y property is present in your coords array
+                    label: kinkNames[index], // Use the label from kinkNames based on index
+                    color: kinkColours[index]
+                }));
+                Highcharts.chart('chartId2', {
+                    chart: {
+                        type: 'scatter'
+                    },
+                    title: {
+                        text: 'Your Kinks'
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Tabooness'
+                        },
+                        max:100
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Popularity'
+                        },
+                        type: 'logarithmic', // Set the y-axis to logarithmic scale
+                        max:90
+                    },
+                    series: [{
+                        name: 'How popular are your kinks',
+                        data: dataWithLabels,
+                        color: 'rgba(75, 192, 192, 0.7)',
+                        marker: {
+                            radius: 8
+                        },
+                        dataLabels: {
+                            enabled: true, // Enable data labels
+                            format: '{point.label}', // Use the label from the data point
+                            allowOverlap: true
+                        }
+                    }],
+                    tooltip: {
+                        formatter: function() {
+                            return this.point.label;
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error getting coordinates:', error);
+            });
+
+        // Full chart
+        Highcharts.chart('chartId', {
+            chart: {
+                type: 'scatter'
+            },
+            title: {
+                text: 'All Kinks'
+            },
+            xAxis: {
+                title: {
+                    text: 'Tabooness'
+                },
+                max:100
+                    },
+            yAxis: {
+                title: {
+                    text: 'Popularity'
+                },
+                type: 'logarithmic', // Set the y-axis to logarithmic scale
+                min:0.1,
+                max:90
+                
+            },
+            series: [{
+                        name: 'How popular are your kinks',
+                        data: kinkCoords,
+                        color: 'rgba(75, 192, 192, 0.7)',
+                        marker: {
+                            radius: 6
+                        },
+                        dataLabels: {
+                            enabled: true, // Enable data labels
+                            format: '{point.value}', // Use the label from the data point
+                            allowOverlap: true
+                        }
+                    }],
+                    tooltip: {
+                        formatter: function() {
+                            return this.point.value;
+                        }
+                    }
+                });
+          
+    </script>
 </body>
 </html>

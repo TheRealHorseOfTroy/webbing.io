@@ -27,52 +27,54 @@
                     selectedKinksP2.push(checkedInput.value);
                 }
             } 
-            const kinksDataMap = JSON.parse(sessionStorage.getItem('kinks'));
-            const kinkNames = trimNames(selectedKinksP2);
-            const kinkValues = trimValues(selectedKinksP2);
+            const kinkNamesp1 = JSON.parse(sessionStorage.getItem('kinkNames'));
+            const kinkValuesp1 = JSON.parse(sessionStorage.getItem('kinkValues'));
+
+            const kinkNamesp2 = trimNames(selectedKinksP2);
+            const kinkValuesp2 = trimValues(selectedKinksP2);
 
           
             // Assuming selectedKinks is an array of objects with kink names as keys
-                for (let i = 0; i <= kinkNames.length; i++) {
-                    const kn = kinkNames[i];
-                    const kv = kinkValues[i];
+            for (let i = 0; i < kinkNamesp2.length; i++) {
+                const kn = kinkNamesp2[i];
+                const kv = kinkValuesp2[i];
 
-                    if (kinksDataMap.hasOwnProperty(kn)) {
-                        const curr = kinksDataMap[kn].value;
-                        //p1 love, p2 like
-                        if (curr === 1 && kv === 'like') {
-                            kinksDataMap[kn].value = 3;
-                        }
-                        //p1 like, p2 like
-                        if (curr === 2 && kv === 'like') {
-                            kinksDataMap[kn].value = 4;
-                        }
-                        //p1 love, p2 love
-                        if (curr === 1 && kv === 'love') {
-                            kinksDataMap[kn].value = 5;
-                        }
-                        //p1 like, p2 love
-                        if (curr === 2 && kv === 'love') {
-                            kinksDataMap[kn].value = 6;
-                        }
+                if (!kinkNamesp1.includes(kn)) {
+                    // Add the new kink name to the list
+                    kinkNamesp1.push(kn);
+                }
+
+                const index = kinkNamesp1.indexOf(kn);
+                if (index !== -1) {
+                    const curr = kinkValuesp1[index];
+                    // p1 love, p2 like
+                    if (curr === 1 && kv === 'like') {
+                        kinkValuesp1[index] = 3;
+                    }
+                    // p1 like, p2 like
+                    if (curr === 2 && kv === 'like') {
+                        kinkValuesp1[index] = 4;
+                    }
+                    // p1 love, p2 love
+                    if (curr === 1 && kv === 'love') {
+                        kinkValuesp1[index] = 5;
+                    }
+                    // p1 like, p2 love
+                    if (curr === 2 && kv === 'love') {
+                        kinkValuesp1[index] = 6;
+                    }
                     } else {
                         let nu = 0;
-                        if (kv == 'like') {
+                        if (kv === 'like') {
                             nu = 7;
-                        } else {
-                            nu = 9;
+                        } else if (kv === 'love') {
+                            nu = 8;
                         }
-                        kinksDataMap[kn] = {
-                            name: kn,
-                            value: nu,
-                            coords: Coords(kn),
-                            colour: "#000000"
-                        };
                     }
             }
 
-            sessionStorage.setItem('kinks2', JSON.stringify(kinksDataMap));
-            sessionStorage.setItem('selectedKinksP2', JSON.stringify(selectedKinksP2));
+            sessionStorage.setItem('kinkNames', JSON.stringify(kinkNamesp1));
+            sessionStorage.setItem('kinkValues', JSON.stringify(kinkValuesp1));
         
             // Navigate to the second page by replacing the current URL
             window.location.replace("C_Stats.html");
