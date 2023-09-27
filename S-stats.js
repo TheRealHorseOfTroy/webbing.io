@@ -119,6 +119,7 @@ function CgetCols(kinkValues, selectedColors){
  
        colours.push(rgbaValue);
     }
+    
     return colours;
 
 }
