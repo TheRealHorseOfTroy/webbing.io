@@ -111,3 +111,14 @@ function SgetCols(kinkValues, selectedColors){
     return colours;
 
 }
+function CgetCols(kinkValues, selectedColors){
+    const colours = []
+
+    for (const index in kinkValues) {
+        const rgbaValue = duocolorPreferences[selectedColors][kinkValues[index]];
+ 
+       colours.push(rgbaValue);
+    }
+    return colours;
+
+}
