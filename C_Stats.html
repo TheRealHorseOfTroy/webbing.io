@@ -34,7 +34,10 @@
         const selectedKinksListP2 = document.getElementById('kinkValues'); // Get the selectedKinksList element
         const selectedColors =  JSON.parse(sessionStorage.getItem('selectedColors')); // Get the selectedKinksList element
         const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
+
         const kinkValues = JSON.parse(sessionStorage.getItem('kinkValues'));
+        console.log(kinkValues);
+
         const kinkColours = CgetCols(kinkValues, selectedColors);
         console.log(kinkColours);
 
