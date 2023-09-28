@@ -35,10 +35,11 @@
         const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
 
         const kinkValues = JSON.parse(sessionStorage.getItem('kinkValues'));
-        console.log(selectedColors);
+        console.log(kinkNames);
+
+        console.log(kinkValues);
 
         const kinkColours = CgetCols(kinkValues, selectedColors);
-        console.log(kinkColours);
 
         if (kinkNames && kinkNames.length > 0) { // Check if the array is not empty
             kinkNames.forEach(k => {
