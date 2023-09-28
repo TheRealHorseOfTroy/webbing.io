@@ -115,7 +115,8 @@ function CgetCols(kinkValues, selectedColors){
     const colours = []
 
     for (const index in kinkValues) {
-        const rgbaValue = duocolorPreferences[selectedColors][kinkValues[Number(index)]];
+        const numericIndex = Number(index); // Convert it to a number
+        const rgbaValue = duocolorPreferences[selectedColors][kinkValues[numericIndex]];
  
        colours.push(rgbaValue);
     }
