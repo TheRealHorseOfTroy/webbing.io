@@ -42,7 +42,17 @@
                 if (!kinkNamesp1.includes(kn)) {
                     // Add the new kink name to the list
                     kinkNamesp1.push(kn);
-                }
+                    let nu = 0;
+                    if (kv === 'like') {
+                        nu = 7;
+                        kinkValuesp1.push(nu);
+                    } else if (kv === 'love') {
+                        nu = 8;
+                        kinkValuesp1.push(nu);
+
+                    }
+                    
+                }else{
 
                 const index = kinkNamesp1.indexOf(kn);
                 if (index !== -1) {
@@ -63,14 +73,7 @@
                     if (curr === 2 && kv === 'love') {
                         kinkValuesp1[index] = 6;
                     }
-                    } else {
-                        let nu = 0;
-                        if (kv === 'like') {
-                            nu = 7;
-                        } else if (kv === 'love') {
-                            nu = 8;
-                        }
-                    }
+                    }} 
             }
 
             sessionStorage.setItem('kinkNames', JSON.stringify(kinkNamesp1));
