@@ -58,14 +58,14 @@ const singlecolorPreferences = {
 };
 const duocolorPreferences = {
     redyellow: {
-        1: "#C74289",
-        2: "#CF6276",
-        3: "##D96D6D",
-        4: "#F7C3A1",
-        5 :"#F09456",
-        6: "#E7C03B",
-        7: "#EFE028",
-        8: "#F7FF14"
+        '1': "#C74289",
+        '2': "#CF6276",
+        '3': "##D96D6D",
+        '4': "#F7C3A1",
+        '5' :"#F09456",
+        '6': "#E7C03B",
+        '7': "#EFE028",
+        '8': "#F7FF14"
 
     },
     pinkpurple: {
