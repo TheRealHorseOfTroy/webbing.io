@@ -36,7 +36,7 @@
 
 
                 if(kv == 'love'){kinkValues[i]= 1;}
-                else{kinkValues[i]= 2;}
+                else if(kv=='like'){kinkValues[i]= 2;}
             }
             sessionStorage.setItem('kinkNamesp1', JSON.stringify(kinkNames));
             sessionStorage.setItem('kinkValuesp1', JSON.stringify(kinkValues));
