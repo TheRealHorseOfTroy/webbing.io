@@ -122,7 +122,20 @@ function CgetCols(kinkValues, selectedColors){
  
        colours.push(rgbaValue);
     }
-    
+    const container = document.getElementById("colorBoxesContainer");
+
+// Define the color scheme you want to use
+    const colorScheme = duocolorPreferences.redyellow;
+
+    // Loop through the colorScheme and create colored boxes with numbers
+    for (let i = 1; i <= 8; i++) {
+            const colorBox = document.createElement("div");
+            colorBox.style.backgroundColor = duocolorPreferences[selectedColors];
+            colorBox.className = "color-box"; // You can style this class in your CSS
+            colorBox.textContent = i;
+            container.appendChild(colorBox);
+        }
+            
     return colours;
 
 }

@@ -19,8 +19,11 @@
 <body>
     <h1>Stats</h1>
     
+    <div id="colorBoxesContainer"></div>
+
     <ul id="selectedKinksList"></ul>
     <div id="nCoordsOutput"></div>
+
 
     <script src="maths.js"></script>
     <script src="S-stats.js"></script>
@@ -31,7 +34,6 @@
         const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
         const kinkValues = JSON.parse(sessionStorage.getItem('kinkValues'));
         const kinkColours = SgetCols(kinkValues, selectedColors);
-        console.log(kinkColours);
 
         if (kinkNames && kinkNames.length > 0) { // Check if the array is not empty
             kinkNames.forEach(k => {
