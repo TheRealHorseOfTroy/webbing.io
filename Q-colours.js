@@ -32,7 +32,7 @@ function CoupleCols() {
         const label = document.createElement('label');
         const radio = document.createElement('input');
         radio.type = 'radio';
-        radio.name = 'animal';
+        radio.name = 'colour';
         radio.value = l; // Set the value attribute to the animal name
 
         label.appendChild(radio);
