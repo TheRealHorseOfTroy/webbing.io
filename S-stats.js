@@ -130,7 +130,7 @@ function CgetCols(kinkValues, selectedColors){
     // Loop through the colorScheme and create colored boxes with numbers
     for (let i = 1; i <= 8; i++) {
             const colorBox = document.createElement("div");
-            colorBox.style.backgroundColor = duocolorPreferences[selectedColors];
+            colorBox.style.backgroundColor = duocolorPreferences[selectedColors][i];
             colorBox.className = "color-box"; // You can style this class in your CSS
             colorBox.textContent = i;
             container.appendChild(colorBox);
