@@ -18,11 +18,69 @@
     </style>
 </head>
 <body>
+    <title>Stats</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link rel="stylesheet" type="text/css" href="attempt.css">
+    <style>
+        .chart-container {
+            position: relative;
+        }
+
+        .data-label {
+            position: absolute;
+            font-size: 12px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .color-box {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .color-box div {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
     <h1>Stats</h1>
-    
+
     <ul id="selectedKinksList"></ul>
     <div id="nCoordsOutput"></div>
-    <div id="colorBoxesContainer"></div>
+    <div id="colorBoxesContainer">
+        <!-- Adding 8 colored squares -->
+        <div class="color-box" style="background-color: red;">
+            <div>1</div>
+        </div>
+        <div class="color-box" style="background-color: green;">
+            <div>2</div>
+        </div>
+        <div class="color-box" style="background-color: blue;">
+            <div>3</div>
+        </div>
+        <div class="color-box" style="background-color: yellow;">
+            <div>4</div>
+        </div>
+        <div class="color-box" style="background-color: orange;">
+            <div>5</div>
+        </div>
+        <div class="color-box" style="background-color: purple;">
+            <div>6</div>
+        </div>
+        <div class="color-box" style="background-color: pink;">
+            <div>7</div>
+        </div>
+        <div class="color-box" style="background-color: brown;">
+            <div>8</div>
+        </div>
+    </div>
 
     <script src="maths.js"></script>
     <script src="S-stats.js"></script>
@@ -37,9 +95,12 @@
         const kinkNames = JSON.parse(sessionStorage.getItem('kinkNames'));
 
         const kinkValues = JSON.parse(sessionStorage.getItem('kinkValues'));
-        console.log(kinkNames);
+        const container = document.getElementById("colorBoxesContainer");
 
-        console.log(kinkValues);
+    // Define the color scheme you want to use
+
+        // Loop through the colorScheme and create colored boxes with numbers
+      
 
         const kinkColours = CgetCols(kinkValues, selectedColors);
 
