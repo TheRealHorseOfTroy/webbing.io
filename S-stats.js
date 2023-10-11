@@ -122,7 +122,13 @@ function CgetCols(kinkValues, selectedColors){
  
        colours.push(rgbaValue);
     }
-        
     return colours;
+}
 
+function getBoxColours(selectedColors){
+    const colours = []
+    for (let i = 1; i <= 8; i++) {
+        colours.push(DuocolorPreferences[selectedColors][i]); 
+    }
+    return colours;
 }
